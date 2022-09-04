@@ -1,0 +1,22 @@
+.double-col { /* For buttons */
+    display: grid;
+    height: 2rem;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr;
+    gap: 10px;
+}
+
+
+.col1 {
+    grid-column : 1; 
+    grid-row : 1 ;
+}
+.col2 {
+    grid-column : 2; 
+    grid-row : 1 ;
+}
+
+.buttons {
+    height:2rem;
+    width:5rem;
+}

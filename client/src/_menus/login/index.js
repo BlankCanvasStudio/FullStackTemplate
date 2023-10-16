@@ -1,0 +1,57 @@
+import { Button, TextField } from '@mui/material';
+import React from 'react';
+import AuthService from "../../_services/auth";
+import './login-menu.css';
+
+class LoginMenu extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            username:'',
+            password:'',
+            loginFailed:false,
+        }
+        this.loginAction = this.props.loginAction;  // Just so we pop an error if we don't pass this
+        this.signupAction = this.props.signupAction;
+        this.updateString = this.updateString.bind(this);
+        this.handleLogin = this.handleLogin.bind(this);
+    }
+
+    handleLogin(event) {
+        event.preventDefault();
+        AuthService.login(this.state.username, this.state.password).then(
+        () => {
+            this.loginAction()
+        },
+        error => {
+            this.setState({loginFailed:true});
+        });
+    }
+
+    updateString(e) { 
+        this.setState({[e.target.name]:e.target.value}); 
+    }
+
+    render() {
+        return (
+            <form onSubmit={this.handleLogin} style={{...this.props.style}} className="login-form">
+                <div className="oauth-login"></div>
+                <div className="standard-login">
+                    <TextField id="username" name="username" label="Email" variant='filled' value={this.state.username} onChange={this.updateString}    />
+                    <TextField id="password" name="password" label="Password" variant='filled' value={this.state.password} onChange={this.updateString} type="password"/>
+                    <div>
+                        { this.state.loginFailed && <p className="login-failed-message">Incorrect Username or Password!</p>}
+                    </div>
+                </div>
+                <hr className="login-ruler"/>
+                <div className="submit-section">
+                    <Button variant='contained' color='success' type="submit" className="login">Log In</Button>
+                    <Button variant='outlined' type="button" className="signup" onClick={this.signupAction}>Sign Up</Button>
+                </div>
+                
+            </form>
+        );
+    }
+}
+
+export default LoginMenu;

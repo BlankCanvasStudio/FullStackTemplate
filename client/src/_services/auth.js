@@ -1,5 +1,5 @@
 import axios from "axios";
-const API_URL = "http://backend.localhost";
+
 class AuthService {
   login(username, password) {
     let config = {
@@ -11,27 +11,50 @@ class AuthService {
     params.append('username', username);
     params.append('password', password);
     return axios
-      .post(API_URL + "/login", params, config)
+      .post("/api/auth/login", params, config)
       .then(response => {
         if (response.data.accessToken) {
-          localStorage.setItem("user", JSON.stringify(response.data));
+          // localStorage.setItem("user", JSON.stringify(response.data));
+          this.saveLoginResponse(response.data)
         }
         return response.data;
       });
   }
+  saveLoginResponse(data) {
+    localStorage.setItem("user", JSON.stringify(data))
+  }
   logout() {
     localStorage.removeItem("user");
-    window.location.reload();
   }
-  register(username, pronouns, password) {
-    return axios.post(API_URL + "/signup", {
-      username,
-      pronouns,
-      password
+  register(email, username, pronouns, password, birthday, country, first_name, last_name, bio) {
+    return axios.post("/api/auth/signup", {
+      email:email,
+      pronouns:pronouns,
+      password:password,
+      birthday:birthday,
+      first_name:first_name,
+      last_name:last_name, 
     });
   }
   getCurrentUser() {
-    return JSON.parse(localStorage.getItem('user'));;
+    return JSON.parse(localStorage.getItem('user'));
+  }
+  verifyLogin() {
+    if(this.getCurrentUser()) { return true; }
+    return false;
   }
 }
-export default new AuthService();
+let tmp = new AuthService()
+export default tmp;
+
+
+export function authHeader() { // Specific to the Node & Express backend
+    const user = JSON.parse(localStorage.getItem('user'));
+    if (user && user.accessToken) {
+        // for Node.js Express back-end
+        return { 'x-access-token': user.accessToken };
+    } else {
+        return {};
+    }
+}
+

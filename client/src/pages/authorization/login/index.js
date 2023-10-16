@@ -19,7 +19,7 @@ function LogIn(props) {
         <div className="background">
             <ScrollRestoration />
             <div className={props.className} style={{display:"flex", justifyContent:'center', height:"30vh"}}>
-                <h1 style={{color:"white"}}>OneUp Log In</h1>
+                <h1 style={{color:"white"}}>FS Template Log In</h1>
             </div>
             <div className="login-wrapper">
                 <LoginMenu loginAction={loginAction} signupAction={signupAction}/>

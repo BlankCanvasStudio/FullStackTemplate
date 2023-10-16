@@ -61,7 +61,7 @@ class SignUp extends React.Component {
                 </Dialog>
                 <div style={{minHeight:"100vh", height:"fit-content", backgroundColor:"#505378"}}>
                     <div className={this.props.className} style={{display:"flex", justifyContent:'center'}}>
-                        <h1 style={{color:"white"}}>OneUp Sign Up</h1>
+                        <h1 style={{color:"white"}}>FS Template Sign Up</h1>
                     </div>
                     <div style={{minHeight:"42em", width:"30em", maxWidth:"100%", marginLeft:"auto", marginRight:"auto", paddingBottom:'4em'}}>
                         <SignUpMenu 

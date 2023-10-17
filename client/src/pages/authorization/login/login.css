@@ -1,5 +1,4 @@
 .background {
-    background-color: #505378;
     height:100vh;
 }
 .login-wrapper {
@@ -7,3 +6,4 @@
     max-width: calc(100% - 1em);
     margin:0 auto;
 }
+

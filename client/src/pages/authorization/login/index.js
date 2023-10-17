@@ -1,9 +1,10 @@
 import React from 'react';
 import LoginMenu from '../../../_menus/login';
 import { ScrollRestoration, useNavigate } from 'react-router-dom';
+import Typography from '@mui/material/Typography';
+import Box from '@mui/material/Box';
 
 import './login.css';
-
 
 function LogIn(props) {
     const navigate = useNavigate();
@@ -16,15 +17,17 @@ function LogIn(props) {
     }
     
     return (
-        <div className="background">
+        <Box bgcolor='lightbackground.main' height="100vh">
             <ScrollRestoration />
-            <div className={props.className} style={{display:"flex", justifyContent:'center', height:"30vh"}}>
-                <h1 style={{color:"white"}}>FS Template Log In</h1>
+            <div style={{height:"30vh"}}>
+                <Typography align="center" variant="h3" color="darktext" sx={{paddingTop:"1em"}} >
+                    FS Template Log In
+                </Typography>
             </div>
             <div className="login-wrapper">
                 <LoginMenu loginAction={loginAction} signupAction={signupAction}/>
             </div>
-        </div>
+        </Box>
     );
 }
 

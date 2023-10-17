@@ -33,7 +33,6 @@ class SignUp extends React.Component {
     }
     signupAction(res) { 
         AuthServices.saveLoginResponse(res.data);
-        console.log('at this point')
         this.props.navigate('/hub')
     }
 

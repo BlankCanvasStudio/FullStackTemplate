@@ -4,15 +4,12 @@ import React from 'react';
 import AuthService from "../../_services/auth";
 
 import { styled } from '@mui/system';
-import Typography from '@mui/material/Typography';
+
+const LoginForm = styled('form')({
+    color:'darkbackground',
+});
 
 import './login-menu.css';
-
-
-const LoginForm = styled('form')(({ theme }) => ({
-    backgroundColor:theme.palette.darkbackground.main,
-}));
-
 
 class LoginMenu extends React.Component {
     constructor(props) {
@@ -45,25 +42,22 @@ class LoginMenu extends React.Component {
 
     render() {
         return (
-            <LoginForm onSubmit={this.handleLogin} style={{...this.props.style}} className="login-form">
+            <form onSubmit={this.handleLogin} style={{...this.props.style}} className="login-form">
+                <div className="oauth-login"></div>
                 <div className="standard-login">
-                        <TextField color="lighttext" id="username" name="username" label="Email" variant='filled' value={this.state.username} onChange={this.updateString}    />
-                        <TextField color="lighttext" id="password" name="password" label="Password" variant='filled' value={this.state.password} onChange={this.updateString} type="password"/>
+                    <TextField id="username" name="username" label="Email" variant='filled' value={this.state.username} onChange={this.updateString}    />
+                    <TextField id="password" name="password" label="Password" variant='filled' value={this.state.password} onChange={this.updateString} type="password"/>
                     <div>
-                        { 
-                            this.state.loginFailed && 
-                            <Typography variant="p" color='error'>
-                                Incorrect Username or Password!
-                            </Typography>
-                        }
+                        { this.state.loginFailed && <p className="login-failed-message">Incorrect Username or Password!</p>}
                     </div>
                 </div>
                 <hr className="login-ruler"/>
                 <div className="submit-section">
                     <Button variant='contained' color='success' type="submit" className="login">Log In</Button>
-                    <Button variant='outlined' color='lightbackground' type="button" className="signup" onClick={this.signupAction}>Sign Up</Button>
+                    <Button variant='outlined' type="button" className="signup" onClick={this.signupAction}>Sign Up</Button>
                 </div>
-            </LoginForm>
+                
+            </form>
         );
     }
 }

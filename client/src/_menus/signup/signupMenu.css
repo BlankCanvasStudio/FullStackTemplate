@@ -3,13 +3,13 @@
     height:fit-content;
     display:flex;
     flex-direction:column;
-    background-color:#505378;
+    background-color:grey;
 }
+/* This is for step icon */
 svg.MuiSvgIcon-root.Mui-active, svg.MuiSvgIcon-root.Mui-completed {
     color:#00B69A;
 }
 .signup-form {
-    background-color:#1E1E1E;
     padding:1em;
     max-width:100vw;
     height:100%;
@@ -19,38 +19,12 @@ svg.MuiSvgIcon-root.Mui-active, svg.MuiSvgIcon-root.Mui-completed {
     margin-left:10%;
     margin-right:10%;
 }
-
-div.email-submission {
+div.single-line-text {
     display:grid;
     grid-template-rows: 1 1;
     row-gap: 0.5em;
     padding-left:15%;
     padding-right:15%;
-}
-div.password-submission {
-    display:grid;
-    grid-template-rows: 1 1;
-    row-gap: 0.5em;
-    padding-left:15%;
-    padding-right:15%;
-}
-div.profile-details-submission {
-    display:grid;
-    grid-template-rows: 1 1;
-    row-gap: 0.5em;
-    padding-left:15%;
-    padding-right:15%;
-}
-div.display-name-submission {
-    display:grid;
-    grid-template-rows: 1 1;
-    row-gap: 0.5em;
-    padding-left:15%;
-    padding-right:15%;
-}
-
-.display-name-submission {
-    color:white;
 }
 
 @media (max-width: 460px) {
@@ -61,19 +35,7 @@ div.display-name-submission {
     .signup-form {
         padding:1em;
     }
-    div.email-submission {
-        padding-left:0;
-        padding-right:0;
-    }
-    div.password-submission {
-        padding-left:0;
-        padding-right:0;
-    }
-    div.profile-details-submission {
-        padding-left:0;
-        padding-right:0;
-    }
-    div.display-name-submission {
+    div.single-line-text {
         padding-left:0;
         padding-right:0;
     }

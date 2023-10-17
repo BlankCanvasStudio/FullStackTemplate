@@ -29,17 +29,17 @@ class BasicInfoMenu extends React.Component {
     render() {
         return (
             <form onSubmit={this.handleSubmit} style={{...this.props.style}} className="signup-form">
-                <div className="email-submission">
+                <div className="single-line-text">
                     <div style={{gridRow:1}}>
                         <TextField sx={{width:"100%", border: (this.state.valid_email) ? '' : '1px solid red', borderRadius:1}} id="email" name="email" label="Email" variant='filled' value={this.props.email} onChange={this.updateEmail} />
                     </div>
                     <div style={{gridRow:2}}>
-                        <TextField sx={{width:"100%", border: (this.props.matching_emails) ? '' : '1px solid red', borderRadius:1}} id="confirmed_email" name="confirmed_email" label=" Confirm Email" variant='filled' value={this.props.confirmed_email} onChange={this.props.updateString} />
+                        <TextField sx={{width:"100%", border: (this.props.matching_emails && this.state.valid_email) ? '' : '1px solid red', borderRadius:1}} id="confirmed_email" name="confirmed_email" label=" Confirm Email" variant='filled' value={this.props.confirmed_email} onChange={this.props.updateString} />
                         { !this.props.matching_emails && <p style={{color:"red"}}>Emails must match</p> }
                     </div>
                 </div>
                 <hr className="login-ruler"/>
-                <div className="password-submission">
+                <div className="single-line-text">
                     <TextField sx={{border: (this.state.valid_password && this.props.matching_passwords) ? '' : '1px solid red', borderRadius:1}}
                         type="password" id="password" name="password" label="Password" variant='filled' value={this.props.password} onChange={this.updatePassword} />
                     <TextField sx={{border: (this.state.valid_password && this.props.matching_passwords) ? '' : '1px solid red', borderRadius:1}}
@@ -47,7 +47,7 @@ class BasicInfoMenu extends React.Component {
                     { !this.props.matching_passwords && <p style={{color:"red"}}>Passwords must match</p> }
                 </div>
                 <hr className="login-ruler"/>
-                <div className="profile-details-submission">
+                <div className="single-line-text">
                     <TextField
                         id="birthday"
                         label="Birthday"

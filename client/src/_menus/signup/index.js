@@ -95,6 +95,7 @@ class SignUpMenu extends React.Component {
 
 
     verifyEmail() {
+        if(!this.state.email.length) { return false; }
         if(!(this.state.email.length && this.state.confirmed_email.length)) { return false; }
         if (this.state.email !== this.state.confirmed_email) { return false; }
         return Validation.email(this.state.email)
@@ -189,7 +190,7 @@ class SignUpMenu extends React.Component {
                     </div>
 
 
-                    <Box sx={{ display: 'flex', flexDirection: 'row', pt: 2, backgroundColor:"#1E1E1E", paddingBottom:"1em", maxWidth:"100vw" }}>
+                    <Box sx={{ display: 'flex', flexDirection: 'row', pt: 2, paddingBottom:"1em", maxWidth:"100vw" }}>
                         <Button
                             color="inherit"
                             disabled={this.state.activeStep === 0}

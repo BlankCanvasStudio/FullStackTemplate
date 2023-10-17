@@ -25,19 +25,19 @@ class DetailsMenu extends React.Component {
     render() {
         return (
             <form onSubmit={this.handleSubmit} style={{...this.props.style}} className="signup-form">
-                <div className="email-submission">
+                <div className="single-line-text">
                     <div style={{gridRow:1}}>
                         <TextField sx={{width:"100%"}} id="first_name" name="first_name" label="First Name" variant='filled' value={this.props.first_name} onChange={this.updateName} />
                     </div>
                 </div>
                 <br/>
-                <div className="email-submission">
+                <div className="single-line-text">
                     <div style={{gridRow:1}}>
                         <TextField sx={{width:"100%"}} id="last_name" name="last_name" label="Last Name" variant='filled' value={this.props.last_name} onChange={this.updateName} />
                     </div>
                 </div>
                 <Ruler />
-                <div className="password-submission">
+                <div className="single-line-text">
                     <TextField type="text" id="pronouns" name="pronouns" label="Pronouns" variant='filled' value={this.props.pronouns} onChange={this.updatePronouns} />
                 </div>
             </form>

@@ -1,5 +1,4 @@
 .login-form {
-    background-color:#1E1E1E;
     padding:1em;
     max-width:100vw;
 }
@@ -10,9 +9,6 @@
     margin-bottom:2em;
 }
 
-.oauth-login {
-
-}
 .standard-login {
     padding-left:15%;
     padding-right:15%;
@@ -21,6 +17,7 @@
     row-gap: 0.5em;
     padding-bottom:1em;
 }
+
 .submit-section {
     padding-left:20%;
     padding-right:20%;
@@ -28,22 +25,15 @@
     column-gap: 2em;
     grid-template-columns: 1fr 1fr;
 }
-.login-failed-message {
-    color:red;
-}
+
 button.login {  
     grid-column: 1;
 }
 button.signup {
     grid-column:2;
-    color:white;
-    border-color: white;
 }
 button.signup:hover {
     grid-column:2;
-    color:black;
-    border-color: white;
-    background-color: white;
     opacity: 90%;
 }
 

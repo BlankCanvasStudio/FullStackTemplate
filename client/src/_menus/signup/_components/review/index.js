@@ -6,7 +6,7 @@ import Ruler from '../ruler';
 function ReviewPane(props) {
     // email, birthday, username, real name, pronouns, bio
     return (
-        <div style={{background:"#1E1E1E", height:"100%", padding:'1em'}}>
+        <div style={{height:"100%", padding:'1em'}}>
             <div style={{textAlign:"center"}}>
                 <h1 style={{color:"white", marginTop:"0"}}>Review</h1>
             </div>

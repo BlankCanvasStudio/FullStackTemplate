@@ -10,7 +10,7 @@ function LogIn(props) {
     const navigate = useNavigate();
     
     const loginAction = () => {
-        navigate('/hub', {replace:true});
+        navigate('/home', {replace:true});
     }
     const signupAction = () => {
         navigate('/signup', {replace:true});

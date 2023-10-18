@@ -14,6 +14,15 @@ function ReviewPane(props) {
             <div style={{padding:"1em"}} />
             <div style={{display:'grid', gridTemplateColumns:"1fr 1fr", width:"100%"}}>
                 <Typography align='center' color='darktext' variant='p'>
+                    Name
+                </Typography>
+                <Typography align='center' color='darktext' variant='p'>
+                    {props.first_name || props.last_name ? (props.first_name + ' ' + props.last_name) : 'No Name Given'}
+                </Typography>
+            </div>
+            <Ruler />
+            <div style={{display:'grid', gridTemplateColumns:"1fr 1fr", width:"100%"}}>
+                <Typography align='center' color='darktext' variant='p'>
                     Email
                 </Typography>
                 <Typography align='center' color='darktext' variant='p'>
@@ -27,15 +36,6 @@ function ReviewPane(props) {
                 </Typography>
                 <Typography align='center' color='darktext' variant='p'>
                     {props.birthday || 'No Birthday'}
-                </Typography>
-            </div>
-            <Ruler />
-            <div style={{display:'grid', gridTemplateColumns:"1fr 1fr", width:"100%"}}>
-                <Typography align='center' color='darktext' variant='p'>
-                    Name
-                </Typography>
-                <Typography align='center' color='darktext' variant='p'>
-                    {props.first_name || props.last_name ? (props.first_name + ' ' + props.last_name) : 'No Name Given'}
                 </Typography>
             </div>
             <Ruler />

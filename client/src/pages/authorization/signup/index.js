@@ -33,7 +33,7 @@ class SignUp extends React.Component {
     }
     signupAction(res) { 
         AuthServices.saveLoginResponse(res.data);
-        this.props.navigate('/hub')
+        this.props.navigate('/home')
     }
 
     render() {

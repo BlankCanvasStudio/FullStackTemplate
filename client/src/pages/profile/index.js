@@ -24,16 +24,16 @@ class ProfilePage extends React.Component {
         this.state = {
             modalOpen:false,
             modalText:'',
-            first_name:'firstN', 
-            last_name:'lastN',
+            first_name:'', 
+            last_name:'',
             pronouns:'',
             birthday:'',
-            email:'test@email.com',
-            addressLineOne:'Line One',
-            addressLineTwo:'Line Two',
-            city:'City',
-            state:'State',
-            zip:'Zip',
+            email:'',
+            addressLineOne:'',
+            addressLineTwo:'',
+            city:'',
+            state:'',
+            zip:'',
         };
         this.updateString = this.updateString.bind(this)
         this.closeModal = this.closeModal.bind(this)

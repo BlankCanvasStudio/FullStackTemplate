@@ -14,6 +14,7 @@ import AdminPage from './pages/admin';
 import SignUp from './pages/authorization/signup';
 import LogIn from './pages/authorization/login';
 import LogoutPage from './pages/authorization/logout';
+import AccessDeniedPage from './pages/denied';
 
 import ProfilePage from './pages/profile'
 import SettingsPage from './pages/settings'
@@ -84,7 +85,12 @@ const router = createBrowserRouter([
             {
                 path:'/settings',
                 element:<SettingsPage />
-            },        ],
+            },
+            {
+                path:"/access-denied",
+                element:<AccessDeniedPage />,
+            },
+    ],
     },
     {
         path:"/login",

@@ -43,6 +43,19 @@ class AuthService {
     if(this.getCurrentUser()) { return true; }
     return false;
   }
+  async verifyAdmin(failed_callback) {
+    await axios({
+      method: "post",
+      url: "/api/auth/admin",
+      data: {},
+      headers: Object.assign(authHeader(), {"Content-Type": "application/json"}),
+    }).then((response) => {
+        if (response.data.admin === false) { failed_callback() }
+    }).catch((err) => {
+        console.log(err)
+        failed_callback()
+    })
+  }
 }
 let tmp = new AuthService()
 export default tmp;

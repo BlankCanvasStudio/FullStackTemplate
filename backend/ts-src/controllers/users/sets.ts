@@ -14,7 +14,7 @@ const pool = new Pool({
 
 async function updateProfile(req:Request, res:Response) {
     try {
-        let results: ReturnValues = await userSets.update_profile(pool, req.body.userID, req.body.username, req.body.first_name, req.body.last_name, req.body.pronouns, req.body.birthday, req.body.email, req.body.bio, req.body.linkTreeEntries);
+        let results: ReturnValues = await userSets.update_profile(pool, req.body.userID, req.body.first_name, req.body.last_name, req.body.pronouns, req.body.birthday, req.body.email, req.body.addressLineOne, req.body.addressLineTwo, req.body.city, req.body.state, parseInt(req.body.zip));
         switch(results) {
             case ReturnValues.SUCCESS: 
                 res.status(204).send({message:"Success!"});        // Valid but no body

@@ -56,7 +56,7 @@ async function retrieveProfile(req:Request, res:Response) {
                 res.status(400).send({message:'Invalid User ID'});        // 
                 break;
             case ReturnValues.SUCCESS: 
-                res.status(200).send({data:results});        // Valid but no body
+                res.status(200).send(results);        // Valid but no body
                 break;
             //This case should never be hit
             case ReturnValues.ERROR:

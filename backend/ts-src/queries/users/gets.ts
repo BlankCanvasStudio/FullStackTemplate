@@ -37,36 +37,50 @@ type ProfileInfoReturn = {
     pronouns:string,
     birthday:string,
     email:string, 
+    addressLineOne:string,
+    addressLineTwo:string,
+    city:string,
+    state:string,
+    zip:number,
     status:ReturnValues,
 }
 
 async function retrieve_profile(pool: typeof Pool, userID:string): Promise<ProfileInfoReturn> {
   if (!validation.pg_pool(pool))     { 
     return {status:ReturnValues.INVALID_PG_POOL, pronouns:'', 
-            birthday:'', email:'', first_name:'', last_name:''}; 
+            birthday:'', email:'', first_name:'', last_name:'',
+            addressLineOne:'', addressLineTwo:'', city:'', state:'',
+            zip:0}; 
   }
   if (!validation.UUID(userID)) { 
     return {status:ReturnValues.INVALID_USER_ID, pronouns:'', 
-            birthday:'', email:'', first_name:'', last_name:''}; 
+            birthday:'', email:'', first_name:'', last_name:'',
+            addressLineOne:'', addressLineTwo:'', city:'', state:'',
+            zip:0}; 
   }
 
   try{
     // Dont' select all cause hashed passwords
     let query_text = `
         SELECT 
-            USERNAME, 
-            PRONOUNS, 
-            to_char(BIRTHDAY, 'YYYY-MM-DD') as BIRTHDAY, 
-            EMAIL, 
             FIRST_NAME, 
             LAST_NAME, 
-            BIO 
+            PRONOUNS, 
+            to_char(BIRTHDAY, 'YYYY-MM-DD') as BIRTHDAY, 
+            EMAIL,
+            ADDRESSLINEONE,
+            ADDRESSLINETWO,
+            CITY,
+            STATE,
+            ZIP
         FROM USERS 
         WHERE ID=$1`;
     let results:any = await pool.query(query_text, [userID]);
     if(results.rowCount !== 1){ 
       return {status:ReturnValues.INVALID_USER_ID, pronouns:'', 
-                birthday:'', email:'', first_name:'', last_name:''}; 
+                birthday:'', email:'', first_name:'', last_name:'',
+            addressLineOne:'', addressLineTwo:'', city:'', state:'',
+            zip:0}; 
     }
     results.rows[0].status = ReturnValues.SUCCESS;
     return results.rows[0];
@@ -75,7 +89,9 @@ async function retrieve_profile(pool: typeof Pool, userID:string): Promise<Profi
     console.log('ERROR! queries.users.gets.retrieve_profile')
     console.log(error);
     return {status:ReturnValues.ERROR, pronouns:'', birthday:'', 
-            email:'', first_name:'', last_name:''}; 
+            email:'', first_name:'', last_name:'',
+            addressLineOne:'', addressLineTwo:'', city:'', state:'',
+            zip:0}; 
   }
 }
 

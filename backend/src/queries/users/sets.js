@@ -30,6 +30,7 @@ var ReturnValues;
     ReturnValues[ReturnValues["INVALID_NUM_USERS_UPDATED"] = 21] = "INVALID_NUM_USERS_UPDATED";
     ReturnValues[ReturnValues["INVALID_LAST_NAME"] = 22] = "INVALID_LAST_NAME";
     ReturnValues[ReturnValues["INVALID_REPEATED_EMAIL"] = 23] = "INVALID_REPEATED_EMAIL";
+    ReturnValues[ReturnValues["INVALID_LOCATION"] = 24] = "INVALID_LOCATION";
 })(ReturnValues || (exports.ReturnValues = ReturnValues = {}));
 ;
 var UserRoles;
@@ -176,7 +177,7 @@ function delete_by_UUID(pool, UUID) {
     });
 }
 exports.delete_by_UUID = delete_by_UUID;
-function update_profile(pool, userID, first_name, last_name, pronouns, birthday, email) {
+function update_profile(pool, userID, first_name, last_name, pronouns, birthday, email, addressLineOne, addressLineTwo, city, state, zip) {
     return __awaiter(this, void 0, void 0, function* () {
         if (birthday) {
             birthday = new Date(birthday);
@@ -202,6 +203,21 @@ function update_profile(pool, userID, first_name, last_name, pronouns, birthday,
         if (birthday && !validation.date(birthday)) {
             return ReturnValues.INVALID_BIRTHDAY;
         }
+        if (addressLineOne && !validation.addressLineOne(addressLineOne)) {
+            return ReturnValues.INVALID_LOCATION;
+        }
+        if (addressLineTwo && !validation.addressLineTwo(addressLineTwo)) {
+            return ReturnValues.INVALID_LOCATION;
+        }
+        if (city && !validation.city(city)) {
+            return ReturnValues.INVALID_LOCATION;
+        }
+        if (state && !validation.state(state)) {
+            return ReturnValues.INVALID_LOCATION;
+        }
+        if (zip && !validation.zip(zip)) {
+            return ReturnValues.INVALID_LOCATION;
+        }
         try {
             let results;
             if (birthday) {
@@ -212,21 +228,34 @@ function update_profile(pool, userID, first_name, last_name, pronouns, birthday,
                               PRONOUNS=$4,
                               BIRTHDAY=$5,
                               EMAIL = $6,
+                              ADDRESSLINEONE=$7,
+                              ADDRESSLINETWO=$8,
+                              CITY=$9,
+                              STATE=$10,
+                              ZIP=$11
                               WHERE ID=$1`;
                 results = (yield pool.query(query_text, [userID, first_name, last_name,
-                    pronouns, birthday, email]));
+                    pronouns, birthday, email,
+                    addressLineOne, addressLineTwo,
+                    city, state, zip]));
             }
             else {
-                let query_text = "UPDATE USERS \
-                              SET USERNAME=$2, \
-                              FIRST_NAME=$3, \
-                              LAST_NAME=$4, \
-                              PRONOUNS=$5, \
-                              EMAIL = $6, \
-                              BIO = $7 \
-                              WHERE ID=$1";
+                let query_text = `UPDATE USERS
+                              SET
+                              FIRST_NAME=$2,
+                              LAST_NAME=$3,
+                              PRONOUNS=$4,
+                              EMAIL = $5,
+                              ADDRESSLINEONE=$6,
+                              ADDRESSLINETWO=$7,
+                              CITY=$8,
+                              STATE=$9,
+                              ZIP=$10
+                              WHERE ID=$1`;
                 results = (yield pool.query(query_text, [userID, first_name, last_name, pronouns,
-                    email]));
+                    email, addressLineOne, addressLineTwo,
+                    city, state, zip
+                ]));
             }
             if (results.rowCount === 0) {
                 return ReturnValues.INVALID_USER_UUID;

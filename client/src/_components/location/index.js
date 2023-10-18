@@ -3,8 +3,15 @@ import Typography from '@mui/material/Typography';
 
 
 
-// This is meant to display a location, not fill out the field
+// This is meant to display a  not fill out the field
 function LocationDisplay(props) {
+    let last_address_line = props.city ? 
+        props.city + ', ' + props.state + ' ' + props.zip
+        : props.state ?
+            props.state + ' ' + props.zip
+            : props.zip > 0 ?
+                "Zip Code: " + props.zip
+                : undefined;
 
     return (
         <>
@@ -15,8 +22,20 @@ function LocationDisplay(props) {
                 {props.addressLineTwo}
             </Typography>
             <Typography variant={props.variant} color={props.color + '.main'} display="block">
-                {props.city} {props.state}, {props.zip}
+                {last_address_line}
             </Typography>
+
+            {
+                !props.addressLineOne && 
+                !props.addressLineTwo && 
+                !last_address_line    
+                ?
+                <Typography variant={props.variant} color={props.color + '.main'} display="block">
+                    No address listed
+                </Typography>
+                :
+                undefined
+            }
         </>
     );
 }

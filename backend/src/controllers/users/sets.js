@@ -23,7 +23,7 @@ const pool = new Pool({
 function updateProfile(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
-            let results = yield userSets.update_profile(pool, req.body.userID, req.body.username, req.body.first_name, req.body.last_name, req.body.pronouns, req.body.birthday, req.body.email, req.body.bio, req.body.linkTreeEntries);
+            let results = yield userSets.update_profile(pool, req.body.userID, req.body.first_name, req.body.last_name, req.body.pronouns, req.body.birthday, req.body.email, req.body.addressLineOne, req.body.addressLineTwo, req.body.city, req.body.state, parseInt(req.body.zip));
             switch (results) {
                 case sets_1.ReturnValues.SUCCESS:
                     res.status(204).send({ message: "Success!" }); // Valid but no body

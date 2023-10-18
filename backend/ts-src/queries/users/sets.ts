@@ -20,6 +20,7 @@ enum ReturnValues {
     INVALID_NUM_USERS_UPDATED,
     INVALID_LAST_NAME,
     INVALID_REPEATED_EMAIL,
+    INVALID_LOCATION,
 };
 
 enum UserRoles {
@@ -158,7 +159,7 @@ async function delete_by_UUID(pool:typeof Pool, UUID:string): Promise<DeleteResp
     return ret_val;
 }
 
-async function update_profile(pool:typeof Pool, userID:string, first_name:string, last_name:string, pronouns:string, birthday:Date, email:string): Promise<ReturnValues> {
+async function update_profile(pool:typeof Pool, userID:string, first_name:string, last_name:string, pronouns:string, birthday:Date, email:string, addressLineOne:string, addressLineTwo:string, city:string, state:string, zip:number): Promise<ReturnValues> {
     if(birthday) { birthday = new Date(birthday); }
     if (!validation.pg_pool(pool)) { return ReturnValues.INVALID_PG_POOL; }
     if (!validation.UUID(userID)) { return ReturnValues.INVALID_USER_UUID; }
@@ -167,6 +168,11 @@ async function update_profile(pool:typeof Pool, userID:string, first_name:string
     if (last_name && !validation.username(last_name)) { return ReturnValues.INVALID_LAST_NAME; }
     if (pronouns && !validation.pronouns(pronouns)) { return ReturnValues.INVALID_PRONOUNS; }
     if (birthday && !validation.date(birthday)) { return ReturnValues.INVALID_BIRTHDAY; }
+    if (addressLineOne && !validation.addressLineOne(addressLineOne)) { return ReturnValues.INVALID_LOCATION; }
+    if (addressLineTwo && !validation.addressLineTwo(addressLineTwo)) { return ReturnValues.INVALID_LOCATION; }
+    if (city && !validation.city(city)) { return ReturnValues.INVALID_LOCATION }
+    if (state && !validation.state(state)) { return ReturnValues.INVALID_LOCATION }
+    if (zip && !validation.zip(zip)) { return ReturnValues.INVALID_LOCATION }
     
     try {
         let results;
@@ -178,23 +184,36 @@ async function update_profile(pool:typeof Pool, userID:string, first_name:string
                               PRONOUNS=$4,
                               BIRTHDAY=$5,
                               EMAIL = $6,
+                              ADDRESSLINEONE=$7,
+                              ADDRESSLINETWO=$8,
+                              CITY=$9,
+                              STATE=$10,
+                              ZIP=$11
                               WHERE ID=$1`;
             results = (await pool.query(query_text, 
                             [userID, first_name, last_name, 
-                                pronouns, birthday, email]));
+                                pronouns, birthday, email, 
+                                addressLineOne, addressLineTwo, 
+                                city, state, zip]));
         }
         else {
-            let query_text = "UPDATE USERS \
-                              SET USERNAME=$2, \
-                              FIRST_NAME=$3, \
-                              LAST_NAME=$4, \
-                              PRONOUNS=$5, \
-                              EMAIL = $6, \
-                              BIO = $7 \
-                              WHERE ID=$1";
+            let query_text = `UPDATE USERS
+                              SET
+                              FIRST_NAME=$2,
+                              LAST_NAME=$3,
+                              PRONOUNS=$4,
+                              EMAIL = $5,
+                              ADDRESSLINEONE=$6,
+                              ADDRESSLINETWO=$7,
+                              CITY=$8,
+                              STATE=$9,
+                              ZIP=$10
+                              WHERE ID=$1`;
             results = (await pool.query(query_text, 
                             [userID, first_name, last_name, pronouns, 
-                                email]));
+                                email,addressLineOne, addressLineTwo, 
+                                city, state, zip
+                            ]));
         }
       
         if (results.rowCount === 0) { return ReturnValues.INVALID_USER_UUID; }

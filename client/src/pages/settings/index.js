@@ -5,6 +5,8 @@ import Typography from '@mui/material/Typography';
 import { TextField } from '@mui/material';
 import LocationEntry from '../../_menus/location'
 import Button from '@mui/material/Button';
+import axios from "axios";
+import { authHeader } from '../../_services/auth';
 
 import './settings.css'
 
@@ -38,8 +40,36 @@ class SettingsPage extends React.Component {
             birthday:'',
         };
         this.updateString = this.updateString.bind(this)
-        this.submit = this.submit.bind(this)
+        this.handleSubmit = this.handleSubmit.bind(this)
         this.closeModal = this.closeModal.bind(this);
+    }
+
+    componentDidMount() {
+        axios({
+          method: "get",
+          url: "/api/user/profile/info",
+          data: {},
+          headers: Object.assign(authHeader(), {"Content-Type": "application/json"}),
+        }).then((response) => {
+            console.log(response.data)
+            console.log(response.data.addresslineone)
+            this.setState({
+                first_name:response.data.first_name, 
+                last_name:response.data.last_name,
+                pronouns:response.data.pronouns,
+                birthday:response.data.birthday,
+                email:response.data.email,
+                addressLineOne:response.data.addresslineone,
+                addressLineTwo:response.data.addresslinetwo,
+                city:response.data.city,
+                state:response.data.state,
+                zip:response.data.zip,
+            })
+        }).catch((err) => {
+            console.log(err);
+            this.setState({modalOpen:true, modalText:err.response.data.message})
+        });
+
     }
 
     updateString(e) { 
@@ -48,11 +78,45 @@ class SettingsPage extends React.Component {
 
     closeModal() { this.setState({modalOpen:false}); }
 
-    submit(e) {
-        this.setState({
-            modalOpen:true,
-            modalText:"Saved your information!",
-        });
+    handleSubmit(e) {
+        /*
+            Add validatoin for contact information, link tree entries, roles, and static information to the top of this
+        */
+
+        let builtdData = {
+            first_name:this.state.first_name, 
+            last_name:this.state.last_name,
+            pronouns:this.state.pronouns,
+            birthday:this.state.birthday,
+            email:this.state.email,
+            addressLineOne:this.state.addressLineOne,
+            addressLineTwo:this.state.addressLineTwo,
+            city:this.state.city,
+            state:this.state.state,
+            zip:this.state.zip,
+        };
+        axios({
+            method: "post",
+            url: "/api/user/profile/update",
+            data: builtdData,
+            headers: Object.assign(authHeader(), {"Content-Type": "application/json"}),
+          })
+          .then((response)=>{
+                // Maybe add a nice fade out animation here?
+                this.setState({modalOpen:true, modalText:"Saved!"})
+
+            }).catch((err) => {
+                console.log(err);
+                if (err.response.status === 500) {
+                    this.setState({massiveFatalError:true});
+                }
+                else if (err.response.status === 400) {
+                    this.setState({modalOpen:true, modalText:err.response.data.message})
+                }
+                else if ( err.response.status === 401 && err.response.data.message === 'Unauthorized!') {
+                    this.setState({modalOpen:true, modalText:'Please log in and re-try'})
+                }
+            });
     }
 
     render() {
@@ -81,8 +145,8 @@ class SettingsPage extends React.Component {
                             Your location
                         </Typography>
                         <LocationEntry 
-                            lineOne={this.state.addressLineOne}
-                            lineTwo={this.state.addressLineTwo}
+                            addressLineOne={this.state.addressLineOne}
+                            addressLineTwo={this.state.addressLineTwo}
                             city={this.state.city}
                             state={this.state.state}
                             zip={this.state.zip}
@@ -135,7 +199,7 @@ class SettingsPage extends React.Component {
                     </div>
                 </div>
                 <div style={{marginRight:"1em", marginLeft:"auto", width:'fit-content'}} >
-                    <Button size="large" variant="contained" color="success" onClick={this.submit}>Save</Button>
+                    <Button size="large" variant="contained" color="success" onClick={this.handleSubmit}>Save</Button>
                 </div>
             </Box>
         );

@@ -1,0 +1,21 @@
+.LocationInput {
+    grid-template-columns: 1fr 1fr;
+    column-gap:1em;
+    row-gap:1em;
+    grid-template-rows: 1 1 1;
+    display:grid;
+}
+
+@media(max-width: 800px) {
+    .LocationInput {
+        column-gap: 0.5em;
+        row-gap: 0.5em;
+    }
+}
+
+@media(max-width: 600px) {
+    .LocationInput {
+        column-gap: 5px;
+        row-gap: 5px;
+    }
+}

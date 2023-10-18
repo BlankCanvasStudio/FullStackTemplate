@@ -1,15 +1,3 @@
-.content-body {
-    background-color: #505378;
-    grid-row: 2;
-    z-index:2;
-    min-height:100Vh;
-    padding-bottom:1em;
-}
-.main-container {
-    background-color:#505378;
-    min-height:100vh;
-    z-index:99;
-}
 /* width */
 ::-webkit-scrollbar {
     width: 7px;

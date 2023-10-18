@@ -1,0 +1,32 @@
+
+.profile-halves {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+
+.other-info-spacing {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    column-gap: 1em;
+    row-gap: 1em;
+}
+
+@media(max-width: 900px) {
+    .profile-halves {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media(max-width: 800px) {
+    .other-info-spacing {
+        column-gap: 0.5em;
+        row-gap: 0.5em;
+    }
+}
+
+@media(max-width: 600px) {
+    .other-info-spacing {
+        column-gap: 5px;
+        row-gap: 5px;
+    }
+}

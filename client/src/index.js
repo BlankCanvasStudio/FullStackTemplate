@@ -1,11 +1,10 @@
-import React, { Suspense, lazy } from 'react';
+import React from 'react';
 import ReactDOM from 'react-dom/client';
 
-import { createBrowserRouter, RouterProvider, Navigate }
+import { createBrowserRouter, RouterProvider }
     from 'react-router-dom';
 
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import CssBaseline from "@mui/material/CssBaseline";
 
 import MainTemplatePage from './_templates/body';
 
@@ -15,6 +14,9 @@ import AdminPage from './pages/admin';
 import SignUp from './pages/authorization/signup';
 import LogIn from './pages/authorization/login';
 import LogoutPage from './pages/authorization/logout';
+
+import ProfilePage from './pages/profile'
+import SettingsPage from './pages/settings'
 
 import './index.css'
 
@@ -74,13 +76,19 @@ const router = createBrowserRouter([
             {
                 path:'/admin',
                 element:<AdminPage />
-            }
-        ],
+            },
+            {
+                path:'/profile',
+                element:<ProfilePage />
+            },
+            {
+                path:'/settings',
+                element:<SettingsPage />
+            },        ],
     },
     {
         path:"/login",
-        element:
-                <LogIn />
+        element:<LogIn />
     },
     {
         path:"/logout",

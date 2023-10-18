@@ -19,7 +19,7 @@ function LogIn(props) {
     return (
         <Box bgcolor='lightbackground.main' height="100vh">
             <ScrollRestoration />
-            <div style={{height:"30vh"}}>
+            <div style={{ height:"30vh" }}>
                 <Typography align="center" variant="h3" color="darktext" sx={{paddingTop:"1em"}} >
                     FS Template Log In
                 </Typography>

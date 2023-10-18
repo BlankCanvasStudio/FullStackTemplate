@@ -1,6 +1,3 @@
-.background {
-    height:100vh;
-}
 .login-wrapper {
     width:30em;
     max-width: calc(100% - 1em);

@@ -6,6 +6,9 @@ import ScrollTop from '../../_components/topbutton/topbutton';
 
 import Fab from '@mui/material/Fab';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
+import Box from '@mui/material/Box';
+import Typography from '@mui/material/Typography';
+
 
 import { ScrollRestoration } from 'react-router-dom';
 
@@ -21,19 +24,17 @@ class MainTemplatePage extends React.Component {
 
     render() {
         return (
-            <div id="main" className="main-container">
+            <Box bgcolor="lightbackground.main" sx={{minHeight:"100vh"}} >
                 <ScrollRestoration />
                 <NavBar recentlyVisited={this.state.recently_visited} />
-                <div className="content-body" style={{backgroundColor:"#505378"}}>
-                    <div id="back-to-top-anchor"></div>
-                    <Outlet />
-                    <ScrollTop>
-                        <Fab size="small" aria-label="scroll back to top">
-                            <KeyboardArrowUpIcon />
-                        </Fab>
-                    </ScrollTop>
-                </div>
-            </div>
+                <div id="back-to-top-anchor"></div>
+                <Outlet />
+                <ScrollTop>
+                    <Fab size="small" aria-label="scroll back to top">
+                        <KeyboardArrowUpIcon />
+                    </Fab>
+                </ScrollTop>
+            </Box>
         );
     }
 }

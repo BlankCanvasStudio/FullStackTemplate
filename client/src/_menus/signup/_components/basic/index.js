@@ -1,6 +1,7 @@
 import * as React from 'react';
 import TextField from '@mui/material/TextField';
 import Validation from "../../../../_services/validation";
+import Ruler from '../ruler';
 
 import './basic.css'
 
@@ -38,7 +39,7 @@ class BasicInfoMenu extends React.Component {
                         { !this.props.matching_emails && <p style={{color:"red"}}>Emails must match</p> }
                     </div>
                 </div>
-                <hr className="login-ruler"/>
+                <Ruler />
                 <div className="single-line-text">
                     <TextField sx={{border: (this.state.valid_password && this.props.matching_passwords) ? '' : '1px solid red', borderRadius:1}}
                         type="password" id="password" name="password" label="Password" variant='filled' value={this.props.password} onChange={this.updatePassword} />
@@ -46,7 +47,7 @@ class BasicInfoMenu extends React.Component {
                         type="password" id="confirmed_password" name="confirmed_password" label=" Confirm Password" variant='filled' value={this.props.confirmed_password} onChange={this.updatePassword} />
                     { !this.props.matching_passwords && <p style={{color:"red"}}>Passwords must match</p> }
                 </div>
-                <hr className="login-ruler"/>
+                <Ruler />
                 <div className="single-line-text">
                     <TextField
                         id="birthday"

@@ -135,15 +135,19 @@ class SignUpMenu extends React.Component {
 
     render() {
         return (
-            <div className="signup-menu-wrapper">
-                <Box style={{backgroundColor:"#505378", maxWidth:"100vw"}}>
-                    <Stepper activeStep={this.state.activeStep} sx={{ paddingLeft:"5%", paddingRight:"5%", marginBottom:"2em", backgroundColor:"#505378"}}>
+            <Box>
+                <Box style={{ maxWidth:"100vw"}}>
+                    <Stepper activeStep={this.state.activeStep} sx={{ padding:"5%" }}>
                         {this.steps.map((label, index) => {
                             const stepProps = this.isStepSkipped(index) ? {completed: false} : {};
-                            const labelProps = this.isStepOptional(index) ? { optional:<Typography variant="caption" ><p style={{color:"white"}}>Optional</p></Typography> } : {};
+                            const labelProps = this.isStepOptional(index) ? 
+                                { optional:<Typography variant="caption">Optional</Typography> } 
+                                : {};
                             return (
-                                <Step key={label} {...stepProps} sx={{color:"white"}}>
-                                    <StepLabel {...labelProps}><p style={{color:"white"}}>{label}</p></StepLabel>
+                                <Step key={label} {...stepProps} color='lighttext.main'>
+                                    <StepLabel {...labelProps} color='lighttext.main'>
+                                        {label}
+                                    </StepLabel>
                                 </Step>
                             );
                         })}
@@ -213,7 +217,7 @@ class SignUpMenu extends React.Component {
                     </Box>
 
                 </React.Fragment>
-            </div>
+            </Box>
         )
     }
 }

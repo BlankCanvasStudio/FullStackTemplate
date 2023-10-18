@@ -5,6 +5,8 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import Button from '@mui/material/Button';
+import Typography from '@mui/material/Typography';
+import Box from '@mui/material/Box';
 
 import SignUpMenu from '../../../_menus/signup';
 import AuthServices from '../../../_services/auth';
@@ -12,8 +14,6 @@ import AuthServices from '../../../_services/auth';
 import withRouter from '../../../_templates/withRouter';
 
 import { ScrollRestoration } from 'react-router-dom';
-
-import '.';
 
 
 class SignUp extends React.Component {
@@ -58,17 +58,17 @@ class SignUp extends React.Component {
                         <Button onClick={this.closeModal} autoFocus>Close</Button>
                     </DialogActions>
                 </Dialog>
-                <div style={{minHeight:"100vh", height:"fit-content", backgroundColor:"#505378"}}>
-                    <div className={this.props.className} style={{display:"flex", justifyContent:'center'}}>
-                        <h1 style={{color:"white"}}>FS Template Sign Up</h1>
-                    </div>
-                    <div style={{minHeight:"42em", width:"30em", maxWidth:"100%", marginLeft:"auto", marginRight:"auto", paddingBottom:'4em'}}>
+                <Box sx={{minHeight:"100vh", height:"fit-content"}} bgcolor="darkbackground.main">
+                    <Typography align="center" variant="h3" color="lighttext.main" sx={{padding:"1em"}} >
+                        FS Template Sign Up
+                    </Typography>
+                    <Box sx={{width:"30em", maxWidth:"100%", margin:"auto"}} bgcolor="lightbackground.main">
                         <SignUpMenu 
                             validation_failed={this.validation_failed} 
                             signupAction={this.signupAction}
                             />
-                    </div>
-                </div>
+                    </Box>
+                </Box>
             </React.Fragment>
         );
     }

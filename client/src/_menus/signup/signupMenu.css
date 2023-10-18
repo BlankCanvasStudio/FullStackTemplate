@@ -6,9 +6,11 @@
     background-color:grey;
 }
 /* This is for step icon */
+/*
 svg.MuiSvgIcon-root.Mui-active, svg.MuiSvgIcon-root.Mui-completed {
     color:#00B69A;
 }
+*/
 .signup-form {
     padding:1em;
     max-width:100vw;

@@ -1,5 +1,6 @@
 import React from 'react';
 import Modal from '@mui/material/Modal';
+import Typography from '@mui/material/Typography';
 
 import './home.css'
 
@@ -14,14 +15,16 @@ class HomePage extends React.Component {
 
     render() {
         return (
-            <>
-
+            <div>
                 <Modal display={this.state.modalOpen} closeModal={this.closeModal}>
                     <p>{this.state.modalText}</p>
                 </Modal>
-                <h1>Welcome to the home page!</h1>               
-
-            </>
+                <div style={{ padding: "1em" }} >
+                    <Typography variant="h3" color="darktext.main" align="center">
+                        Welcome to the home page!
+                    </Typography>
+                </div>
+            </div>
         );
     }
 }

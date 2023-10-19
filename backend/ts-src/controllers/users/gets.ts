@@ -1,11 +1,8 @@
 import { Response, Request } from "express";
 const { Pool } = require('pg');
 let userGets = require("../../queries/users/gets");
-let userAuth = require("../../queries/users/auth");
 
 import { ReturnValues, ProfileInfoReturn } from '../../queries/users/gets';
-
-import { ReturnValues as AuthReturnValues } from '../../queries/users/auth';
 
 const pool = new Pool({
     user: process.env.PGUSER,
@@ -25,25 +22,6 @@ async function userRoles(req:Request, res:Response) {
         res.status(500).send({message:'Reason Unknown'})
     }
 }
-
-async function verifyAdmin(req:Request, res:Response) {
-    try {
-        let results = await userAuth.verify_admin(pool, req.body.userID);
-        switch(results) {
-            case AuthReturnValues.SUCCESS:
-                res.status(200).send({admin: true});
-                break;
-            default:
-                res.status(200).send({admin: false});
-                break;
-        }
-    }
-    catch (error) {
-        console.log('users.gets.verifyAdmin:\n', error);
-        res.status(500).send({message:'Reason Unknown'})
-    }
-}
-
 
 async function retrieveProfile(req:Request, res:Response) {
     try {
@@ -75,5 +53,5 @@ async function retrieveProfile(req:Request, res:Response) {
 }
 
 export {
-    userRoles, verifyAdmin, retrieveProfile,
+    userRoles, retrieveProfile,
 }

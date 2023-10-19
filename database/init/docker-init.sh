@@ -35,8 +35,8 @@ cd $db_folder_loc
 sudo docker buildx build -t $project_name:db .
 
 # Remove the old container and run the new one
-sudo docker stop fullstacktemplate
-sudo docker rm fullstacktemplate
+sudo docker stop $project_name
+sudo docker rm $project_name
 # Create the docker volume for data persistance
 sudo docker volume rm     $project_name;     # need to remove the old one or the database won't update
 sudo docker volume create $project_name;

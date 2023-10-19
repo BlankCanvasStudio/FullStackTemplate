@@ -9,12 +9,10 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.retrieveProfile = exports.verifyAdmin = exports.userRoles = void 0;
+exports.retrieveProfile = exports.userRoles = void 0;
 const { Pool } = require('pg');
 let userGets = require("../../queries/users/gets");
-let userAuth = require("../../queries/users/auth");
 const gets_1 = require("../../queries/users/gets");
-const auth_1 = require("../../queries/users/auth");
 const pool = new Pool({
     user: process.env.PGUSER,
     host: process.env.PGHOST,
@@ -35,26 +33,6 @@ function userRoles(req, res) {
     });
 }
 exports.userRoles = userRoles;
-function verifyAdmin(req, res) {
-    return __awaiter(this, void 0, void 0, function* () {
-        try {
-            let results = yield userAuth.verify_admin(pool, req.body.userID);
-            switch (results) {
-                case auth_1.ReturnValues.SUCCESS:
-                    res.status(200).send({ admin: true });
-                    break;
-                default:
-                    res.status(200).send({ admin: false });
-                    break;
-            }
-        }
-        catch (error) {
-            console.log('users.gets.verifyAdmin:\n', error);
-            res.status(500).send({ message: 'Reason Unknown' });
-        }
-    });
-}
-exports.verifyAdmin = verifyAdmin;
 function retrieveProfile(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
         try {

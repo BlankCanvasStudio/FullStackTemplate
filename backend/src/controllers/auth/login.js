@@ -12,6 +12,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.authSignUp = exports.authLogin = void 0;
 var jwt = require("jsonwebtoken");
 const authQueries = require('../../queries/users/auth');
+const auth_1 = require("../../queries/users/auth");
+const sets_1 = require("../../queries/users/sets");
 const userSetsQueries = require('../../queries/users/sets');
 const { Pool } = require('pg');
 const pool = new Pool({
@@ -22,12 +24,10 @@ const pool = new Pool({
     port: process.env.PGPORT,
 });
 pool.connect();
-let authStringLocation = process.env.appSrc + '/queries/users/auth';
-let AuthReturnValues = require(authStringLocation).ReturnValues;
 const authLogin = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     let login_result = yield authQueries.verify_login(pool, req.body.username, req.body.password);
     switch (login_result.response) {
-        case AuthReturnValues.SUCCESS:
+        case auth_1.ReturnValues.SUCCESS:
             let userID = login_result.userID;
             var token = jwt.sign({ userID }, process.env.JWT_SECRET, {
                 expiresIn: process.env.JWT_LIFETIME
@@ -48,19 +48,19 @@ const authLogin = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         case authQueries.ReturnValues.INVALID_PASSWORD:
             res.status(404).send({ message: 'Invalid Username or Password!' });
             break;
-        case AuthReturnValues.NO_LOGIN:
+        case auth_1.ReturnValues.NO_LOGIN:
             res.status(401).json({
                 accessToken: null,
                 message: "Invalid Username or Password!"
             });
             break;
-        case AuthReturnValues.INVALID_NUM_USERS:
+        case auth_1.ReturnValues.INVALID_NUM_USERS:
             res.status(404).json({
                 message: "Invalid Username or Password!"
             });
             break;
         default:
-        case AuthReturnValues.ERROR:
+        case auth_1.ReturnValues.ERROR:
             res.status(500).json({
                 message: "Unknown Critical Error Encountered. Please Contact Staff"
             });
@@ -85,24 +85,23 @@ const authSignUp = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
                     message: "Success!"
                 });
                 break;
-            case userSetsQueries.ReturnValues.INVALID_PG_POOL:
+            case sets_1.ReturnValues.INVALID_PG_POOL:
                 res.status(500).send({ message: 'Invalid Pool' });
                 break;
-            case userSetsQueries.ReturnValues.INVALID_EMAIL:
+            case sets_1.ReturnValues.INVALID_EMAIL:
                 res.status(500).send({ message: 'Invalid Email' });
                 break;
-            case userSetsQueries.ReturnValues.INVALID_REPEATED_EMAIL:
+            case sets_1.ReturnValues.INVALID_REPEATED_EMAIL:
                 res.status(500).send({ message: 'Email already in use' });
                 break;
-            case userSetsQueries.ReturnValues.ERROR_USERS_EXISTS:
-            case userSetsQueries.ReturnValues.INVALID_USERNAME:
+            case sets_1.ReturnValues.ERROR_USERS_EXISTS:
                 res.status(404).send({ message: 'Invalid Username' });
                 break;
-            case userSetsQueries.ReturnValues.INVALID_PASSWORD:
+            case sets_1.ReturnValues.INVALID_PASSWORD:
                 res.status(400).send({ message: 'Invalid Password' });
                 break;
             default:
-            case userSetsQueries.ReturnValues.ERROR:
+            case sets_1.ReturnValues.ERROR:
                 res.status(500).send({ message: 'Reason Unknown' });
                 break;
         }

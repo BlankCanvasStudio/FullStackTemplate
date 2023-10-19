@@ -1,6 +1,8 @@
 import { Response, Request, response } from "express";
 var jwt = require("jsonwebtoken");
 const authQueries = require('../../queries/users/auth');
+import { ReturnValues as AuthReturnValues } from '../../queries/users/auth'
+import { ReturnValues as SetsReturnValues } from '../../queries/users/sets'
 const userSetsQueries = require('../../queries/users/sets');
 const { Pool } = require('pg');
 
@@ -13,11 +15,6 @@ const pool = new Pool({
 });
 
 pool.connect();
-
-
-let authStringLocation:string = process.env.appSrc + '/queries/users/auth'
-
-let AuthReturnValues = require(authStringLocation).ReturnValues;
 
 
 const authLogin = async (req:Request, res:Response): Promise<void> => {
@@ -89,29 +86,28 @@ const authSignUp = async (req:Request, res:Response): Promise<void> => {
                 });
                 break;
 
-            case userSetsQueries.ReturnValues.INVALID_PG_POOL:
+            case SetsReturnValues.INVALID_PG_POOL:
                 res.status(500).send({message: 'Invalid Pool'})
                 break;
             
-            case userSetsQueries.ReturnValues.INVALID_EMAIL:
+            case SetsReturnValues.INVALID_EMAIL:
                 res.status(500).send({message: 'Invalid Email'})
                 break;
             
-            case userSetsQueries.ReturnValues.INVALID_REPEATED_EMAIL:
+            case SetsReturnValues.INVALID_REPEATED_EMAIL:
                 res.status(500).send({message: 'Email already in use'})
                 break;
 
-            case userSetsQueries.ReturnValues.ERROR_USERS_EXISTS: 
-            case userSetsQueries.ReturnValues.INVALID_USERNAME: 
+            case SetsReturnValues.ERROR_USERS_EXISTS: 
                 res.status(404).send({message: 'Invalid Username'}); 
                 break;
 
-            case userSetsQueries.ReturnValues.INVALID_PASSWORD: 
+            case SetsReturnValues.INVALID_PASSWORD: 
                 res.status(400).send({message: 'Invalid Password'})
                 break;
                
             default:
-            case userSetsQueries.ReturnValues.ERROR: 
+            case SetsReturnValues.ERROR: 
                 res.status(500).send({message: 'Reason Unknown'})
                 break;
             

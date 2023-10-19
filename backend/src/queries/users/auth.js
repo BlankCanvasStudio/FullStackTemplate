@@ -99,13 +99,13 @@ function verify_admin(pool, userID) {
                 (
                     select ROLE 
                     FROM USERS
-                    WHERE U_ID=$1 AND ROLE='ADMIN'
+                    WHERE ID=$1 AND ROLE='ADMIN'
                 );`;
             let results = yield pool.query(query_text, [userID]);
             return results.rows[0]['?column?'] === false ? ReturnValues.SUCCESS : ReturnValues.ERROR;
         }
         catch (error) {
-            console.log("ERROR! queries.users.auth.verifyEventAdmin");
+            console.log("ERROR! queries.users.auth.verifyAdmin");
             console.log(error);
             return ReturnValues.ERROR;
         }

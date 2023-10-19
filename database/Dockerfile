@@ -7,7 +7,7 @@ ENV POSTGRES_PASSWORD=jvNLvz6kuEXxXSveVrhxdoDo7GLcLzuKogS8xbj
 ENV POSTGRES_USER=backenduser
 
 # Five the db an actual name
-ENV POSTGRES_DB=ProjectB
+ENV POSTGRES_DB=fullstacktemplate
 
 # Copy all .sql files you want to initialize into this folder so it will 
 # create all the tables on startup

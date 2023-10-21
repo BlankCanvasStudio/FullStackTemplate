@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { verifyToken } from '../middleware/authJwt'
+import { verifyToken, verifyAdmin } from '../middleware/authJwt'
 
 let userGets = require('../controllers/users/gets')
 let userSets = require('../controllers/users/sets')
@@ -13,5 +13,9 @@ usersRouter.get('/profile/info',
 usersRouter.post('/profile/update',
     [ verifyToken ],
     userSets.updateProfile);
+
+usersRouter.post('/profile/view/:userID', 
+    [ verifyToken, verifyAdmin ],
+    userGets.viewProfile);
 
 module.exports = usersRouter;

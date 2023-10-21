@@ -9,7 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.retrieveProfile = exports.userRoles = void 0;
+exports.viewProfile = exports.retrieveProfile = exports.userRoles = void 0;
 const { Pool } = require('pg');
 let userGets = require("../../queries/users/gets");
 const gets_1 = require("../../queries/users/gets");
@@ -64,3 +64,34 @@ function retrieveProfile(req, res) {
     });
 }
 exports.retrieveProfile = retrieveProfile;
+function viewProfile(req, res) {
+    return __awaiter(this, void 0, void 0, function* () {
+        try {
+            let results = yield userGets.retrieve_profile(pool, req.params.userID);
+            switch (results.status) {
+                case gets_1.ReturnValues.INVALID_PG_POOL:
+                    res.status(500).send({ message: 'Invalid Pool' });
+                    break;
+                case gets_1.ReturnValues.INVALID_USER_ID:
+                    res.status(400).send({ message: 'Invalid User ID' }); // 
+                    break;
+                case gets_1.ReturnValues.SUCCESS:
+                    res.status(200).send(results); // Valid but no body
+                    break;
+                //This case should never be hit
+                case gets_1.ReturnValues.ERROR:
+                default:
+                    res.status(500).send({ message: 'Reason Unknown' });
+                    break;
+            }
+        }
+        catch (error) {
+            console.log("ERROR! controllers.users.gets.retrieveProfile");
+            console.log(error);
+            res.status(500).json({
+                message: "Unknown Critical Error Encountered. Please Contact Staff"
+            });
+        }
+    });
+}
+exports.viewProfile = viewProfile;

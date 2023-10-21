@@ -7,4 +7,5 @@ let userSets = require('../controllers/users/sets');
 const usersRouter = (0, express_1.Router)();
 usersRouter.get('/profile/info', [authJwt_1.verifyToken], userGets.retrieveProfile);
 usersRouter.post('/profile/update', [authJwt_1.verifyToken], userSets.updateProfile);
+usersRouter.post('/profile/view/:userID', [authJwt_1.verifyToken, authJwt_1.verifyAdmin], userGets.viewProfile);
 module.exports = usersRouter;

@@ -22,7 +22,6 @@ async function userRoles(req:Request, res:Response) {
         res.status(500).send({message:'Reason Unknown'})
     }
 }
-
 async function retrieveProfile(req:Request, res:Response) {
     try {
         let results:ProfileInfoReturn = await userGets.retrieve_profile(pool, req.body.userID);
@@ -51,7 +50,35 @@ async function retrieveProfile(req:Request, res:Response) {
         });
     }
 }
+async function viewProfile(req:Request, res:Response) {
+    try {
+        let results:ProfileInfoReturn = await userGets.retrieve_profile(pool, req.params.userID);
+        switch(results.status) {
+            case ReturnValues.INVALID_PG_POOL: 
+                res.status(500).send({message: 'Invalid Pool'})
+                break;
+            case ReturnValues.INVALID_USER_ID:
+                res.status(400).send({message:'Invalid User ID'});        // 
+                break;
+            case ReturnValues.SUCCESS: 
+                res.status(200).send(results);        // Valid but no body
+                break;
+            //This case should never be hit
+            case ReturnValues.ERROR:
+            default:
+                res.status(500).send({message: 'Reason Unknown'})
+                break;
+        }
+    }
+    catch (error) {
+        console.log("ERROR! controllers.users.gets.retrieveProfile")
+        console.log(error)
+        res.status(500).json({
+            message:"Unknown Critical Error Encountered. Please Contact Staff"
+        });
+    }
+}
 
 export {
-    userRoles, retrieveProfile,
+    userRoles, retrieveProfile, viewProfile,
 }

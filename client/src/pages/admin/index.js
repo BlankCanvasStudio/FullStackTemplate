@@ -4,6 +4,7 @@ import Typography from '@mui/material/Typography';
 // import axios from "axios";
 import AuthServices from '../../_services/auth'
 import { useNavigate } from 'react-router-dom';
+import UserSearchSpace from '../../_components/search/users'
 
 import './admin.css'
 
@@ -27,6 +28,12 @@ function AdminPage(props) {
                     Welcome to the admin page!
                 </Typography>
             </div>
+                
+            <div>
+                <UserSearchSpace />
+            </div>
+
+            
         </>
     );
 }

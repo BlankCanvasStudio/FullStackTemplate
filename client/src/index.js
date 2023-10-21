@@ -16,7 +16,8 @@ import LogIn from './pages/authorization/login';
 import LogoutPage from './pages/authorization/logout';
 import AccessDeniedPage from './pages/denied';
 
-import ProfilePage from './pages/profile'
+import PersonalProfilePage from './pages/profile/personal'
+import ViewProfilePage from './pages/profile/view'
 import SettingsPage from './pages/settings'
 
 import './index.css'
@@ -76,19 +77,23 @@ const router = createBrowserRouter([
             },
             {
                 path:'/admin',
-                element:<AdminPage />
+                element:<AdminPage />,
             },
             {
                 path:'/profile',
-                element:<ProfilePage />
+                element:<PersonalProfilePage />,
             },
             {
                 path:'/settings',
-                element:<SettingsPage />
+                element:<SettingsPage />,
             },
             {
                 path:"/access-denied",
                 element:<AccessDeniedPage />,
+            },
+            {
+                path:'/profile/view/:userID',
+                element:<ViewProfilePage />,
             },
     ],
     },

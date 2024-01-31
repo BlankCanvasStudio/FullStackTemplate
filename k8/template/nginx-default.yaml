@@ -1,0 +1,39 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: other-service
+  labels:
+    app: nginx
+spec:
+  ports:
+  - port: 80
+    targetPort: 80
+    name: other-service
+  selector:
+    app: other-service
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: other-service
+spec:
+  serviceName: "other-service"
+  replicas: 1
+  selector:
+    matchLabels:
+      app: other-service
+  template:
+    metadata:
+      labels:
+        app: other-service
+    spec:
+      containers:
+      - name: http-server-container
+        image: python:3
+        ports:
+        - containerPort: 80
+          name: api-service
+        command: ["/bin/sh", "-c"]
+        args:
+        - python -m http.server 80 --bind 0.0.0.0
+
